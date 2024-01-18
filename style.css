@@ -205,7 +205,7 @@ main {
   width: 100%;
 }
 
-/*.movie-info {
+.movie-info {
   color: #eee;
   display: flex;
   align-items: center;
@@ -253,4 +253,4 @@ main {
 
 .movie:hover .overview {
   transform: translateY(0);
-} */
+}
