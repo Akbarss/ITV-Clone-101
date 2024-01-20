@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.tabs {
+			display: flex;
+			list-style: none;
+			padding: 0;
+		}
+
+		.tab {
+			cursor: pointer;
+			padding: 10px;
+			margin: 0;
+			border: 1px solid #ccc;
+			background-color: #f2f2f2;
+		}
+
+		.tab.active {
+			background-color: #ddd;
+		}
+
+		.content {
+			margin-top: 20px;
+		}
+	</style>
+	<title>API Tabs Example</title>
+</head>
+
+<body>
+
+	<div>
+		<ul class="tabs" id="tabs">
+			<li class="tab" onclick="changeTab(0)">Tab 1</li>
+			<li class="tab" onclick="changeTab(1)">Tab 2</li>
+			<li class="tab" onclick="changeTab(2)">Tab 3</li>
+			<li class="tab" onclick="changeTab(3)">Tab 4</li>
+		</ul>
+		<div class="content" id="content">
+			<!-- Content will be dynamically loaded here -->
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			changeTab(0);
+		});
+
+		function changeTab(index) {
+			var tabs = document.querySelectorAll('.tab');
+			tabs.forEach(function (tab) {
+				tab.classList.remove('active');
+			});
+
+			tabs[index].classList.add('active');
+
+			fetchData(index);
+		}
+
+		function fetchData(tabIndex) {
+			var apiUrl = 'https://jsonplaceholder.typicode.com/posts?userId=' + (tabIndex + 1);
+
+			fetch(apiUrl)
+				.then(response => response.json())
+				.then(data => displayData(data));
+		}
+
+		function displayData(data) {
+			var contentDiv = document.getElementById('content');
+			contentDiv.innerHTML = '';
+
+			// Create and append elements for each data item
+			data.forEach(function (item) {
+				var postDiv = document.createElement('div');
+				postDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`;
+				contentDiv.appendChild(postDiv);
+			});
+		}
+	</script>
+
+</body>
+
+</html>

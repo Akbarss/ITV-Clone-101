@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movie Explorer</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		#tabs {
+			display: flex;
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 10px;
+			margin: 0;
+			border: none;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+			border-radius: 5px;
+		}
+
+		.tab-content {
+			display: none;
+		}
+
+		#movies {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+
+		.movie {
+			width: 200px;
+		}
+
+		img {
+			width: 100%;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Tabs -->
+	<div id="tabs">
+		<button onclick="openTab('tab1')">Tab 1</button>
+		<button onclick="openTab('tab2')">Tab 2</button>
+	</div>
+
+	<!-- Tab Content -->
+	<div id="tab1" class="tab-content">
+		<!-- Content for Tab 1 -->
+		<div id="movies"></div>
+	</div>
+
+	<div id="tab2" class="tab-content">
+		<!-- Content for Tab 2 -->
+		<div id="movies"></div>
+	</div>
+
+	<p id="currentDate"></p>
+
+	<script>
+		const API_URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1";
+		const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
+
+		function openTab(tabName) {
+			let i;
+			let tabContents = document.getElementsByClassName("tab-content");
+			for (i = 0; i < tabContents.length; i++) {
+				tabContents[i].style.display = "none";
+			}
+			document.getElementById(tabName).style.display = "block";
+
+			if (tabName === 'tab1') {
+				fetchMovies();
+			}
+			if (tabName === 'tab2') {
+				fetchMovies();
+			}
+		}
+
+		// Function to fetch movies from TMDb API
+		function fetchMovies() {
+			fetch(API_URL)
+				.then(response => response.json())
+				.then(data => {
+					const moviesContainer = document.getElementById('movies');
+					moviesContainer.innerHTML = "";
+
+					data.results.forEach(movie => {
+						const movieElement = document.createElement('div');
+						movieElement.classList.add('movie');
+						movieElement.innerHTML = `
+                        <img src="${IMG_PATH + movie.poster_path}" alt="${movie.title}">
+                        <h3>${movie.title}</h3>
+                    `;
+						moviesContainer.appendChild(movieElement);
+					});
+				})
+				.catch(error => console.error('Error fetching TMDb API:', error));
+		}
+
+
+		fetchMovies();
+	</script>
+
+</body>
+
+</html>
