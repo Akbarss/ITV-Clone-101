@@ -51,16 +51,24 @@ function getClassByRate(vote) {
   }
 }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault()
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  const searchTerm = search.value
+  const searchTerm = search.value;
 
-  if (searchTerm && searchTerm !== '') {
-    getMovies(SEARCH_API + searchTerm)
+  if (searchTerm && searchTerm !== "") {
+    getMovies(SEARCH_API + searchTerm);
 
-    search.value = ''
+    search.value = "";
   } else {
-    window.location.reload()
+    window.location.reload();
   }
-})
+});
+
+function openModal() {
+  document.getElementById("modalOverlay").style.display = "flex";
+}
+
+// function closeModal() {
+//   document.getElementById("modalOverlay").style.display = "none";
+// }

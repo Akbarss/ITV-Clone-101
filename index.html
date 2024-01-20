@@ -19,25 +19,37 @@
 				</div>
 				<div class="link">
 					<a href="">Televideniye</a>
-					<a href="">Televideniye</a>
-					<a href="">Televideniye</a>
-					<a href="">Televideniye</a>
-					<a href="">Televideniye</a>
+					<a href="">Videoklub</a>
+					<a href="">Jonli efir</a>
+					<a href="">Radio</a>
+					<a href="">Obunalar</a>
 
 				</div>
 			</div>
 			<div class="right-header">
-				<form id="form">
-					<input type="text" id="search" class="search" placeholder="Search Movie">
-				</form>
+
 				<button class="lang">uz</button>
-				<button class="lang">uz</button>
-				<button class="lang">uz</button>
+				<button onclick="openModal()" class="lang"><iconify-icon class="icon"
+						icon="majesticons:search-line"></iconify-icon></button>
+				<button class="lang"><iconify-icon class="icon" icon="mdi:bell"></iconify-icon></button>
+				<button class="lang"><iconify-icon class="icon" icon="ion:exit-outline"></iconify-icon></button>
 			</div>
 		</div>
 	</header>
 
 	<main class="main">
+		<div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
+			<div class="modal">
+
+				<h2>Modal Title</h2>
+				<form id="form">
+					<input type="text" id="search" class="search" placeholder="Search Movie">
+				</form>
+				
+				<main id="main"></main>
+
+			</div>
+		</div>
 		<!-- Swiper -->
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">
@@ -133,6 +145,7 @@
 		});
 	</script>
 	<script src="./script.js"></script>
+	<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 
 </html>
